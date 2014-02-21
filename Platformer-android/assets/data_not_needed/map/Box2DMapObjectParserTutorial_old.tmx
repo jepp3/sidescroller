@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="150" height="25" tilewidth="16" tileheight="16">
+ <properties>
+  <property name="unitScale" value=".03125"/>
+ </properties>
+ <tileset firstgid="1" name="asd" tilewidth="16" tileheight="16">
+  <image source="../img/tiles2.png" width="1024" height="768"/>
+ </tileset>
+ <layer name="tiles" width="150" height="25">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <objectgroup name="box2D" width="150" height="25">
+  <object name="5" type="object" x="4" y="353" width="191" height="29"/>
+  <object name="6" type="object" x="319" y="320" width="132" height="64"/>
+  <object name="dfsgdg" type="object" x="8" y="69">
+   <polyline points="0,0 29,10 92,10 150,-33"/>
+  </object>
+  <object name="environment" type="object" x="-39" y="400">
+   <polyline points="0,0 1364,-6 1368,-402 0,-400 0,0"/>
+  </object>
+  <object name="ground" type="fixture" x="-40" y="381">
+   <properties>
+    <property name="body" value="environment"/>
+   </properties>
+   <polyline points="0,0 800,0"/>
+  </object>
+  <object name="g1" type="object" x="155" y="193" width="73" height="29"/>
+  <object name="g2" type="object" x="161" y="33">
+   <polyline points="0,0 223,0 223,23 217,30 190,30 191,54 184,61 38,61 33,56 32,32 8,32 1,24 0,0"/>
+  </object>
+  <object name="g3" type="object" x="416" y="32">
+   <polyline points="0,0 63,0 63,23 56,31 9,31 2,25 0,1"/>
+  </object>
+  <object name="g4" type="object" x="481" y="33">
+   <polyline points="0,0 30,15 96,15 127,-2 127,11 99,28 32,30 1,13 0,1"/>
+  </object>
+  <object name="g5" type="object" x="611" y="32">
+   <polyline points="0,0 236,1 206,61 53,62 46,57 46,31 6,31 -1,24 -2,1"/>
+  </object>
+  <object name="g6" type="object" x="352" y="224">
+   <polyline points="0,0 64,0"/>
+  </object>
+  <object name="g7" type="object" x="511" y="365">
+   <polyline points="0,0 -5,-7 1,-11 144,-13 145,-108 101,-111 99,-117 95,-144 71,-143 65,-151 55,-143 11,-143 -2,-150 -1,-191 -5,-200 3,-206 66,-205 72,-198 67,-190 65,-175 249,-175"/>
+  </object>
+  <object name="g9" type="object" x="762" y="191">
+   <polyline points="0,0 88,0 121,17 180,17 212,2 293,1 438,1 438,15 423,17 423,56 415,65 271,65 264,59 263,33 223,33 216,27 214,15 184,31 120,32 87,16 86,27 80,31 70,33 -105,162"/>
+  </object>
+ </objectgroup>
+</map>

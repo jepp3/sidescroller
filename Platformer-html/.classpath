@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Platformer"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gdx-backend-gwt-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gdx-backend-gwt.jar" sourcepath="war/WEB-INF/lib/gdx-backend-gwt-sources.jar"/>
+	<classpathentry kind="lib" path="/Platformer/libs/gdx-sources.jar"/>
+	<classpathentry kind="lib" path="/Platformer/libs/gdx.jar" sourcepath="/Platformer/libs/gdx-sources.jar"/>
+	<classpathentry kind="lib" path="/Platformer/libs/kryonet-2.21-all.jar"/>
+	<classpathentry kind="lib" path="/Platformer/libs/libgdx-utils-sources.jar"/>
+	<classpathentry kind="lib" path="/Platformer/libs/libgdx-utils.jar" sourcepath="/Platformer/libs/libgdx-utils-sources.jar"/>
+	<classpathentry kind="lib" path="/home/jeppe/libs/java/extensions/gdx-controllers/gdx-controllers.jar"/>
+	<classpathentry kind="lib" path="/home/jeppe/libs/java/extensions/gdx-controllers/gdx-controllers-gwt.jar"/>
+	<classpathentry kind="lib" path="/home/jeppe/libs/java/extensions/gdx-controllers/sources/gdx-controllers-sources.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>

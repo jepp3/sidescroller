@@ -1,0 +1,139 @@
+package com.platformer.domain;
+
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.platformer.platformer.Constants;
+
+public class Soldier extends DynamicPhysicsEntity implements Movable{
+
+	private static final float MOVE_SPEED = 0.1f; 
+	
+	Animation stand;
+    Animation walk;
+ 
+    float stateTime;
+	private boolean facesRight = true;
+    private boolean idle = true;
+    private long id = 0;
+    private Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/jet.ogg"));
+	
+	
+	public Soldier(GameWorld gameWorld, World world, float x, float y,float angle) {
+		super(gameWorld, world, x, y, angle);
+		loadSprite();
+	}
+	
+	private void loadSprite()
+	{ 
+        Texture koalaTexture = new Texture("koalio.png");
+        TextureRegion[] regions = TextureRegion.split(koalaTexture, 18, 26)[0];
+        stand = new Animation(0, regions[0]);
+  
+        walk = new Animation(0.15f, regions[2], regions[3], regions[4]);
+        walk.setPlayMode(Animation.LOOP_PINGPONG);
+	}
+
+	@Override
+	Body initPhysicsBody(World world, float x, float y, float angle) {
+		
+		Sprite sprite = new Sprite(new Texture(Gdx.files.internal("soldier.png")));
+		BodyDef def = new BodyDef();
+		def.type = BodyType.DynamicBody;
+		Body box = world.createBody(def);
+
+		PolygonShape poly = new PolygonShape();		
+		box.setAwake(true);
+		box.setActive(true);
+		poly.setAsBox(0.45f, .5f);
+		Fixture u = box.createFixture(poly, 2f);
+		u.setDensity(3);
+		poly.dispose();	
+		PolygonShape feet = new PolygonShape();		
+		box.setAwake(true);
+		box.setActive(true);
+		feet.setAsBox(0.42f, .01f,new Vector2(0,-0.50f),0);
+		Fixture f = box.createFixture(feet, 2f);
+		f.setUserData("feets");
+		f.setRestitution(0.1f);
+		f.setFriction(1);
+		f.setDensity(0);
+		feet.dispose();	
+		box.setUserData(this);
+		box.setSleepingAllowed(false);
+		box.setFixedRotation(true);
+	
+		sprite.setSize(1, 1f);
+		return box;
+		
+	}
+	@Override
+	public void moveRight() {			
+		this.facesRight = true;
+		this.idle =false;
+		if(getBody().getLinearVelocity().x <= 13)
+			getBody().applyLinearImpulse(new Vector2(5.0f,0f), getBody().getWorldCenter(),true);
+	}
+	@Override
+	public void moveLeft() {
+		this.facesRight = false;
+		this.idle =false;
+		//System.out.println(getBody().getLinearVelocity());
+		if(getBody().getLinearVelocity().x >= -13)
+			getBody().applyLinearImpulse(new Vector2(-5.0f,0f), getBody().getWorldCenter(),true);
+	}
+	@Override
+	public void fly() {
+		long id = sound.play(0.3f); // play new sound and keep handle for further manipulation
+		sound.loop();   // keeps the sound looping
+		getBody().applyLinearImpulse(0, 2f, getBody().getPosition().x, getBody().getPosition().y,true);			
+	}
+	@Override
+	public void jump() {
+		 getBody().applyLinearImpulse(new Vector2(0.0f,25f), getBody().getWorldCenter(),true);
+	}
+	@Override
+	public void idle() {
+		this.idle = true;
+		sound.stop();             // stops the sound instance immediately
+	}
+	@Override
+	public Image getImage() {
+		return new Image(loadImage("soldier.png"));
+	}
+	@Override
+	public void draw(SpriteBatch spriteBatch, float delta) {
+		stateTime += delta;
+        TextureRegion frame = null;
+        frame = stand.getKeyFrame(stateTime);
+		
+		if(this.idle == false) {
+			frame = walk.getKeyFrame(stateTime);  
+		}
+		
+		if(facesRight) {
+			spriteBatch.draw(frame, getBody().getPosition().x - 0.5f, getBody().getPosition().y -(.5f), 1, 1);
+		}
+		else {
+			spriteBatch.draw(frame, getBody().getPosition().x + 0.5f, getBody().getPosition().y -(.5f), -1, 1);
+		}
+    }
+	
+	
+	
+}
