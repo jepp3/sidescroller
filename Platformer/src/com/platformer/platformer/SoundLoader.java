@@ -20,6 +20,6 @@ public class SoundLoader {
 	{
 		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("megaman.mp3"));
 		backgroundMusic.setLooping(true);
-		backgroundMusic.play();	
+	//	backgroundMusic.play();	
 	}
 }

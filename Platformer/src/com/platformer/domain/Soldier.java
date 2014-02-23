@@ -24,16 +24,13 @@ public class Soldier extends DynamicPhysicsEntity implements Movable{
 
 	private static final float MOVE_SPEED = 0.1f; 
 	
-	Animation stand;
-    Animation walk;
+	private Animation stand;
+	private Animation walk;
  
     float stateTime;
 	private boolean facesRight = true;
     private boolean idle = true;
-    private long id = 0;
-    private Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/jet.ogg"));
-	
-	
+    
 	public Soldier(GameWorld gameWorld, World world, float x, float y,float angle) {
 		super(gameWorld, world, x, y, angle);
 		loadSprite();
@@ -44,7 +41,6 @@ public class Soldier extends DynamicPhysicsEntity implements Movable{
         Texture koalaTexture = new Texture("koalio.png");
         TextureRegion[] regions = TextureRegion.split(koalaTexture, 18, 26)[0];
         stand = new Animation(0, regions[0]);
-  
         walk = new Animation(0.15f, regions[2], regions[3], regions[4]);
         walk.setPlayMode(Animation.LOOP_PINGPONG);
 	}
@@ -93,14 +89,11 @@ public class Soldier extends DynamicPhysicsEntity implements Movable{
 	public void moveLeft() {
 		this.facesRight = false;
 		this.idle =false;
-		//System.out.println(getBody().getLinearVelocity());
 		if(getBody().getLinearVelocity().x >= -13)
 			getBody().applyLinearImpulse(new Vector2(-5.0f,0f), getBody().getWorldCenter(),true);
 	}
 	@Override
 	public void fly() {
-		long id = sound.play(0.3f); // play new sound and keep handle for further manipulation
-		sound.loop();   // keeps the sound looping
 		getBody().applyLinearImpulse(0, 2f, getBody().getPosition().x, getBody().getPosition().y,true);			
 	}
 	@Override
@@ -110,7 +103,6 @@ public class Soldier extends DynamicPhysicsEntity implements Movable{
 	@Override
 	public void idle() {
 		this.idle = true;
-		sound.stop();             // stops the sound instance immediately
 	}
 	@Override
 	public Image getImage() {

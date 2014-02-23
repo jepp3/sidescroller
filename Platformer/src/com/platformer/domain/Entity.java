@@ -12,7 +12,6 @@ public abstract class Entity {
 
 	protected float x, y, angle;
 	Rectangle rectangle;
-	Texture texture;
 	Image image;
 	public Entity(final GameWorld gameWorld, float x, float y, float angle)
 	{
@@ -20,7 +19,7 @@ public abstract class Entity {
 		this.y = y;
 		this.angle = angle;
 		rectangle = new Rectangle();
-		texture = loadImage("koalio.png");
+		loadImage("koalio.png");
 		image = getImage();
 		image.setRotation(angle);
 	}
@@ -28,20 +27,14 @@ public abstract class Entity {
 	public abstract Image getImage();
 	
 	abstract public void draw(SpriteBatch spriteBatch,float delta);
-	public Texture getTexture()
-	{
-		return texture;
-	}
+
 	
 	/**
 	 * Sets the position of the entity 
 	 * @param x
 	 * @param y
 	 */
-	public void setPos(float x, float y)
-	{
-		
-	}
+	public abstract void setPos(float x, float y);
 	
 	/**
 	 * Sets the angle (rotation) on the entity

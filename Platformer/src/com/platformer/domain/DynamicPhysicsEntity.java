@@ -9,8 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public abstract class DynamicPhysicsEntity extends Entity implements PhysicsEntity {
 
-	// for calculating interpolation
-	  private float prevX, prevY, prevA;
 	  private Body body;
 
 	  /**
@@ -28,7 +26,7 @@ public abstract class DynamicPhysicsEntity extends Entity implements PhysicsEnti
 		  setAngle(angle);
 	  }
   
-	 abstract Body initPhysicsBody(World world, float x, float y, float angle);
+	  abstract Body initPhysicsBody(World world, float x, float y, float angle);
 
 
 	 @Override
@@ -42,7 +40,7 @@ public abstract class DynamicPhysicsEntity extends Entity implements PhysicsEnti
 	  }
 	 
 	 /**
-	  * This method is not needed to be overriden, due to some entities might not need it
+	  * This method is not needed to be overrided, due to some entities might not need it
 	  */
 	  @Override
 	  public void update(float delta) {
@@ -67,10 +65,8 @@ public abstract class DynamicPhysicsEntity extends Entity implements PhysicsEnti
 	  }
 	  @Override
 	  public void setPos(float x, float y) {
-		    super.setPos(x, y);
+		   // super.setPos(x, y);
 		    getBody().setTransform(new Vector2(x, y), getBody().getAngle());
-		    prevX = x;
-		    prevY = y;
 	  }
 	  
 	  @Override
@@ -78,6 +74,5 @@ public abstract class DynamicPhysicsEntity extends Entity implements PhysicsEnti
 	  {
 		    super.setAngle(angle);
 		    getBody().setTransform(getBody().getPosition(), angle);
-		    prevA = angle;
 	  }
 }

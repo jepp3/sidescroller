@@ -26,7 +26,6 @@ public class Box extends DynamicPhysicsEntity {
 		Fixture f = box.createFixture(poly, 2f);
 		f.setDensity(400);
 		f.setFriction(1);
-		//f.setRestitution(0.3f);
 		box.setAwake(true);
 		box.setActive(true);
 		
