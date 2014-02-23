@@ -6,8 +6,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.platformer.domain.Box;
+import com.platformer.domain.EnemySoldier;
 import com.platformer.domain.Entity;
 import com.platformer.domain.GameWorld;
+import com.platformer.domain.Soldier;
 
 
 
@@ -41,8 +43,6 @@ public class WorldLoader {
        
 		Box2DMapObjectParser parser = new Box2DMapObjectParser();
 		parser.load(PhysicWorld.getInstance(), map);
-
-		
         OrthogonalTiledMapRenderer  mapRenderer = null;
         mapRenderer = new OrthogonalTiledMapRenderer(map,parser.getUnitScale());
         
@@ -52,7 +52,6 @@ public class WorldLoader {
 	
 	private static void loadEntities(GameWorld gameWorld)
 	{
-		
 		Entity box = new Box(gameWorld, PhysicWorld.getInstance(), 10,10, 0);
 		Entity box2 = new Box(gameWorld, PhysicWorld.getInstance(), 15,10, 0);
 		Entity box3 = new Box(gameWorld, PhysicWorld.getInstance(), 17,10, 0);
@@ -76,6 +75,9 @@ public class WorldLoader {
 		gameWorld.addEntity(box9);
 		gameWorld.addEntity(box10);
 		gameWorld.addEntity(box11);
+		
+		GlobalAccess.setSoldier(new Soldier(gameWorld, PhysicWorld.getInstance(), 10,14, 0));
+		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 20, 14, 0,GlobalAccess.getSoldierInstance()));
 		
 	}
 

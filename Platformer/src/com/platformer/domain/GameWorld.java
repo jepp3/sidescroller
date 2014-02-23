@@ -31,5 +31,6 @@ public class GameWorld {
 	public OrthogonalTiledMapRenderer getRenderer() {
 		return this.renderer;
 	}
+	
 
 }

@@ -27,6 +27,7 @@ import com.platformer.input.InputSublogic;
 import com.platformer.input.KeyBoardSubLogic;
 import com.platformer.input.TouchSubLogic;
 import com.platformer.platformer.ContactListenerImplementation;
+import com.platformer.platformer.GlobalAccess;
 import com.platformer.platformer.PhysicWorld;
 import com.platformer.platformer.Platformer;
 import com.platformer.platformer.SoundLoader;
@@ -49,7 +50,7 @@ public class GameScreen implements Screen{
 	private OrthographicCamera camera;
 	private Platformer game;
     private GameWorld gameWorld;
-	private Soldier soldier;
+	
 	private InputLogicWraper input = new InputLogicWraper();
 	
 		
@@ -62,7 +63,7 @@ public class GameScreen implements Screen{
 		box2DRenderer = new  Box2DDebugRenderer();
         gameWorld = WorldLoader.createWorld("map/Box2DMapObjectParserTutorial.tmx");
         SoundLoader.loadSounds();
-        soldier = new Soldier(gameWorld, PhysicWorld.getInstance(), 10,14, 0);
+        
         
         try {
 			desideInputMethod();
@@ -83,7 +84,7 @@ public class GameScreen implements Screen{
 		Controller controller = searchForController();
 		ContactListener contactListener = new ContactListenerImplementation();
 		PhysicWorld.getInstance().setContactListener(contactListener);
-
+		Soldier soldier = GlobalAccess.getSoldierInstance();
 		if(controller != null) {
 	        
 			InputSublogic subLogicController = new ControllerSubLogic(soldier,contactListener,controller);
@@ -131,9 +132,10 @@ public class GameScreen implements Screen{
 		
 		SpriteBatch batch = (SpriteBatch) gameWorld.getRenderer().getSpriteBatch();
 		
+		Soldier soldier = GlobalAccess.getSoldierInstance();
 		
 		input.process();
-		updateCameraLocation();
+		updateCameraLocation(soldier);
         gameWorld.getRenderer().setView(camera);
         gameWorld.getRenderer().render();
         gameWorld.getRenderer().getSpriteBatch().begin();
@@ -147,7 +149,8 @@ public class GameScreen implements Screen{
 	}
 	
 
-	private void updateCameraLocation() {
+	private void updateCameraLocation(Soldier soldier) {
+
 		camera.position.x=soldier.getBody().getPosition().x;
 		camera.position.y=soldier.getBody().getPosition().y;
 		

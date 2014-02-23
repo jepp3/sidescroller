@@ -20,13 +20,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.platformer.platformer.Constants;
 
-public class Soldier extends DynamicPhysicsEntity implements Movable{
+public class Soldier extends MortalDynamicPhysicsEntity  implements Movable{
 
 	private static final float MOVE_SPEED = 0.1f; 
 	
 	private Animation stand;
 	private Animation walk;
- 
     float stateTime;
 	private boolean facesRight = true;
     private boolean idle = true;
@@ -34,6 +33,8 @@ public class Soldier extends DynamicPhysicsEntity implements Movable{
 	public Soldier(GameWorld gameWorld, World world, float x, float y,float angle) {
 		super(gameWorld, world, x, y, angle);
 		loadSprite();
+		stateTime = 0;
+		
 	}
 	
 	private void loadSprite()
@@ -79,26 +80,34 @@ public class Soldier extends DynamicPhysicsEntity implements Movable{
 		
 	}
 	@Override
-	public void moveRight() {			
+	public void moveRight() {		
+		if(!isDead()) {
 		this.facesRight = true;
 		this.idle =false;
-		if(getBody().getLinearVelocity().x <= 13)
+		if(getBody().getLinearVelocity().x <= 13) // speed check
 			getBody().applyLinearImpulse(new Vector2(5.0f,0f), getBody().getWorldCenter(),true);
+		}
 	}
 	@Override
 	public void moveLeft() {
-		this.facesRight = false;
-		this.idle =false;
-		if(getBody().getLinearVelocity().x >= -13)
-			getBody().applyLinearImpulse(new Vector2(-5.0f,0f), getBody().getWorldCenter(),true);
+		if(!isDead()) {
+			this.facesRight = false;
+			this.idle =false;
+			if(getBody().getLinearVelocity().x >= -13)
+				getBody().applyLinearImpulse(new Vector2(-5.0f,0f), getBody().getWorldCenter(),true);
+		}
 	}
 	@Override
 	public void fly() {
-		getBody().applyLinearImpulse(0, 2f, getBody().getPosition().x, getBody().getPosition().y,true);			
+		if(!isDead()){
+			getBody().applyLinearImpulse(0, 2f, getBody().getPosition().x, getBody().getPosition().y,true);
+		}
 	}
 	@Override
 	public void jump() {
-		 getBody().applyLinearImpulse(new Vector2(0.0f,25f), getBody().getWorldCenter(),true);
+		if(!isDead()) {
+			getBody().applyLinearImpulse(new Vector2(0.0f,25f), getBody().getWorldCenter(),true);
+		}
 	}
 	@Override
 	public void idle() {
@@ -125,6 +134,19 @@ public class Soldier extends DynamicPhysicsEntity implements Movable{
 			spriteBatch.draw(frame, getBody().getPosition().x + 0.5f, getBody().getPosition().y -(.5f), -1, 1);
 		}
     }
+	
+	@Override
+	public  void die() {
+		super.die();
+		System.out.print("dead");
+	}
+
+
+	@Override
+	public void resurrect() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
