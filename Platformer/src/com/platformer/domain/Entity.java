@@ -12,16 +12,16 @@ public abstract class Entity {
 
 	protected float x, y, angle;
 	Rectangle rectangle;
-	Image image;
+	protected Image image;
 	public Entity(final GameWorld gameWorld, float x, float y, float angle)
 	{
 		this.x = x;
 		this.y = y;
 		this.angle = angle;
 		rectangle = new Rectangle();
-		loadImage("koalio.png");
-		image = getImage();
-		image.setRotation(angle);
+		//loadImage("koalio.png");
+		//image = getImage();
+		//image.setRotation(angle);
 	}
 
 	public abstract Image getImage();

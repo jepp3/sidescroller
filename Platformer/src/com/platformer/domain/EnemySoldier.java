@@ -18,23 +18,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class EnemySoldier extends DynamicPhysicsEntity implements Movable{
 	
-	//private Animation stand;
-	//private Animation walk;
-	//private float  stateTime;
+	private Animation stand;
+	private Animation walk;
+	private float  stateTime;
 	private Soldier seekObject = null;
 	private final int maxSpeed = 1;
-//	private boolean facesRight = true;
-    //private boolean idle = true;
+	private boolean facesRight = false;
+    private boolean idle = true;
     
     
     
 	public EnemySoldier(GameWorld gameworld, World world, float  x , float y ,float angle) {
 		super(gameworld,world,x,y,angle);
 		loadSprite();
-		//stateTime = 0;
 	}
-	
-	
 	public EnemySoldier(GameWorld gameworld, World world, float  x , float y ,float angle,Soldier seek) {
 		super(gameworld,world,x,y,angle);
 		loadSprite();
@@ -80,12 +77,16 @@ public class EnemySoldier extends DynamicPhysicsEntity implements Movable{
 
 	@Override
 	public void moveRight() {
+		facesRight = true;
+		this.idle = false;
 		if(getBody().getLinearVelocity().x <= 8) // speed check
 			getBody().applyLinearImpulse(new Vector2(5.0f,0f), getBody().getWorldCenter(),true);
 	}
 
 	@Override
 	public void moveLeft() {
+		facesRight = false;
+		this.idle = false;
 		if(getBody().getLinearVelocity().x >= -8)
 			getBody().applyLinearImpulse(new Vector2(-5.0f,0f), getBody().getWorldCenter(),true);
 	}
@@ -100,105 +101,106 @@ public class EnemySoldier extends DynamicPhysicsEntity implements Movable{
 	public void jump() {
 		// TODO Auto-generated method stub
 		
-	}
+	}        
 
 	@Override
 	public void idle() {
 		// TODO Auto-generated method stub
-		
+		this.idle = true;
 	}
 
 	private void loadSprite() {
-		
+        Texture koalaTexture = new Texture("koalio.png");
+        
+        TextureRegion[] regions = TextureRegion.split(koalaTexture, 64,64 )[0];
+        stand = new Animation(0, regions[0]);
+        walk = new Animation(0.15f, regions[2], regions[3], regions[4],regions[5],regions[6]);
+        walk.setPlayMode(Animation.LOOP_PINGPONG);
 	}
-	
-	@Override
-	public Image getImage() {
-		return new Image(loadImage("soldier.png"));
-	}
-	
-	
 	public void seekThis(Soldier entity) {
 		this.seekObject = entity;
 	}
 	private void artificialIntelligence() {
 		
 		if(this.seekObject != null && this.seekObject.isDead == false) {
-			float direction = calculateDirectionToMove();
+			calculateMovement();
 			determentAction(calculateDistance());
-			getBody().applyLinearImpulse(new Vector2(direction,0f), getBody().getWorldCenter(),true);
-		} else {
-			// be idle
 		}
 	}
-	private double calculateDistance() {
+	private Vector2 calculateDistance() {
 		Vector2 targetPos = this.seekObject.getBody().getPosition();
 		Vector2 thisPos = this.getBody().getPosition();
 		
-		double distance = targetPos.x - thisPos.x;
-		
-		
-		
-		
-		
-		return Math.abs(distance);
+		double distanceX = targetPos.x - thisPos.x;
+		Vector2 dist = new Vector2((float)Math.abs(distanceX),targetPos.y);
+		return dist;
 		
 	}
-	private void determentAction(double distance) {
+	private void determentAction(Vector2 distance) {
 		
-		System.out.println(distance);
 			final double knifeDistance 	= 1;
 			final double shootDistance 	= 5;
 			final double runDistance 		= 10;
 			
-			if(distance < knifeDistance) {
+			if(distance.x < knifeDistance && ((int)distance.y) == ((int)this.getBody().getPosition().y)) {
+				
+				// set animation to knife
 				this.seekObject.die();
 				
-			} else if(distance < shootDistance) {
+			} else if(distance.x < shootDistance) {
+				// set animation to shoot
 				
+			} else if(distance.x < runDistance) {
 				
-			} else if(distance < runDistance) {
-				
-				
+				// set animation to run
+			}
+			else 
+			{
+				// set animation to idle
 			}
 			
 				
 	}
-	private int calculateDirectionToMove() {
+	private void calculateMovement() {
 		
 		Vector2 targetPos = this.seekObject.getBody().getPosition();
 		Vector2 thisPos = this.getBody().getPosition();
 	
-		if(targetPos.y  - 1.5 >  thisPos.y) {
-			return 0;
+		if(targetPos.y  - 1.5 >  thisPos.y || targetPos.y + 1.5 < thisPos.y) {
+			this.idle();
 		}
-		if(targetPos.x < thisPos.x) {
-			if(getBody().getLinearVelocity().x <= maxSpeed)
-				return -2;
+		else if(targetPos.x < thisPos.x) {
+			this.moveLeft();
 		}
 		else{
-			if(getBody().getLinearVelocity().x >= -maxSpeed)
-				return +2;
+			this.moveRight();
 		}
-		return 0;
+		
 	}
 	@Override
 	public void draw(SpriteBatch spriteBatch, float delta) {
 		this.artificialIntelligence();
 		//stateTime += delta;
         TextureRegion frame = null;
-       // frame = stand.getKeyFrame(stateTime);
+        stateTime += delta;
+       // TextureRegion frame = null;
+        
+        if(idle == true) {
+        	frame = stand.getKeyFrame(stateTime);
+        }
+        else {
+        	frame = walk.getKeyFrame(stateTime);
+        }
+        
 		
-//		if(this.idle == false) {
-//			frame = walk.getKeyFrame(stateTime);  
-//		}
 		
-//		if(facesRight) {
-//			spriteBatch.draw(frame, getBody().getPosition().x - 0.5f, getBody().getPosition().y -(.5f), 1, 1);
-	//	}
-	//	else {
-	//		spriteBatch.draw(frame, getBody().getPosition().x + 0.5f, getBody().getPosition().y -(.5f), -1, 1);
-	//	}
+		if(facesRight) {
+			spriteBatch.draw(frame, getBody().getPosition().x - 0.5f, getBody().getPosition().y -(.5f), 1, 1);
+		}
+		else {
+			spriteBatch.draw(frame, getBody().getPosition().x + 0.5f, getBody().getPosition().y -(.5f), -1, 1);
+		}
+
 		
 	}
 

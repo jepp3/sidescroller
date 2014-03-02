@@ -89,12 +89,7 @@ public class GameScreen implements Screen{
 	        
 			InputSublogic subLogicController = new ControllerSubLogic(soldier,contactListener,controller);
 	        input.addSubLogic(subLogicController);
-	        System.out.println("controller found");
 		}
-		else {
-			System.out.println("found no controller");
-		}
-		
 
 		InputSublogic subLogicTouch = new TouchSubLogic(soldier,contactListener);
 		InputSublogic subLogicKeyBoard = new KeyBoardSubLogic(soldier,contactListener);
@@ -145,7 +140,7 @@ public class GameScreen implements Screen{
         	ent.draw(batch,delta);
 		}    
         gameWorld.getRenderer().getSpriteBatch().end();
-        box2DRenderer.render(PhysicWorld.getInstance(), camera.combined);
+     //   box2DRenderer.render(PhysicWorld.getInstance(), camera.combined);
 	}
 	
 

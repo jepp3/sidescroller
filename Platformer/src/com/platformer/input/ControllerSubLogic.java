@@ -15,13 +15,13 @@ public class ControllerSubLogic extends InputSublogic{
 	
 	
 
-	private ContactListenerImplementation 	contactListener;
+	//private ContactListenerImplementation 	contactListener;
 	Controller activeController;
 	public ControllerSubLogic(Movable movable, ContactListener listner, Controller controller)
 	{
 		super(movable);
 		
-		contactListener =(ContactListenerImplementation) listner;
+	//	contactListener =(ContactListenerImplementation) listner;
 		activeController = controller;
 	}	
 
@@ -38,7 +38,7 @@ public class ControllerSubLogic extends InputSublogic{
 
 	@Override
 	protected boolean checkJump() {
-		return contactListener.inTheSky == false && (activeController.getButton(0));
+		return ((Soldier)movable).isInTheSky() == false && (activeController.getButton(0));
 	}
 
 	@Override

@@ -11,6 +11,9 @@ public class Box extends DynamicPhysicsEntity {
 	
 	public Box(GameWorld gameWorld, World world, float x, float y, float angle) {
 		super(gameWorld, world, x, y, angle);
+		
+		image = getImage();
+		image.setRotation(angle);
 		image.setSize(1,1);
 	}
 

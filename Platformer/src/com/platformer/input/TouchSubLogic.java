@@ -3,16 +3,17 @@ package com.platformer.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.platformer.domain.Movable;
+import com.platformer.domain.Soldier;
 import com.platformer.platformer.ContactListenerImplementation;
 
 
 public class TouchSubLogic extends InputSublogic {
 	
-	ContactListenerImplementation contactListener;
+	//ContactListenerImplementation contactListener;
 	public TouchSubLogic(Movable movable, ContactListener listner)
 	{
 		super(movable);
-		contactListener = (ContactListenerImplementation) listner;
+	//	contactListener = (ContactListenerImplementation) listner;
 	}
 
 	private boolean checkMultiTouch(float startX, float endX) {
@@ -42,7 +43,7 @@ public class TouchSubLogic extends InputSublogic {
 
 	@Override
 	protected boolean checkJump() {
-		return contactListener.inTheSky == false && checkMultiTouch(0.75f, 1);
+		return ((Soldier)movable).isInTheSky()  == false && checkMultiTouch(0.75f, 1);
 	}
 
 	@Override

@@ -29,6 +29,7 @@ public class Soldier extends MortalDynamicPhysicsEntity  implements Movable{
     float stateTime;
 	private boolean facesRight = true;
     private boolean idle = true;
+    private boolean inTheSky = false;
     
 	public Soldier(GameWorld gameWorld, World world, float x, float y,float angle) {
 		super(gameWorld, world, x, y, angle);
@@ -40,9 +41,10 @@ public class Soldier extends MortalDynamicPhysicsEntity  implements Movable{
 	private void loadSprite()
 	{ 
         Texture koalaTexture = new Texture("koalio.png");
-        TextureRegion[] regions = TextureRegion.split(koalaTexture, 18, 26)[0];
+        
+        TextureRegion[] regions = TextureRegion.split(koalaTexture, 64,64 )[0];
         stand = new Animation(0, regions[0]);
-        walk = new Animation(0.15f, regions[2], regions[3], regions[4]);
+        walk = new Animation(0.15f, regions[2], regions[3], regions[4],regions[5],regions[6]);
         walk.setPlayMode(Animation.LOOP_PINGPONG);
 	}
 
@@ -138,10 +140,15 @@ public class Soldier extends MortalDynamicPhysicsEntity  implements Movable{
 	@Override
 	public  void die() {
 		super.die();
-		System.out.print("dead");
 	}
 
-
+	public boolean isInTheSky() {
+		return inTheSky;
+	}
+	
+	public void setInTheSky(boolean inSky) {
+		this.inTheSky = inSky;
+	}
 	@Override
 	public void resurrect() {
 		// TODO Auto-generated method stub
