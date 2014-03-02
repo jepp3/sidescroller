@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.platformer.domain.Box;
+import com.platformer.domain.Bullet;
 import com.platformer.domain.EnemySoldier;
 import com.platformer.domain.Entity;
 import com.platformer.domain.GameWorld;
@@ -52,7 +53,7 @@ public class WorldLoader {
 	
 	private static void loadEntities(GameWorld gameWorld)
 	{
-		Entity box = new Box(gameWorld, PhysicWorld.getInstance(), 10,10, 0);
+	/*	Entity box = new Box(gameWorld, PhysicWorld.getInstance(), 10,10, 0);
 		Entity box2 = new Box(gameWorld, PhysicWorld.getInstance(), 15,10, 0);
 		Entity box3 = new Box(gameWorld, PhysicWorld.getInstance(), 17,10, 0);
 		Entity box4 = new Box(gameWorld, PhysicWorld.getInstance(), 18,14, 0);
@@ -75,6 +76,20 @@ public class WorldLoader {
 		gameWorld.addEntity(box9);
 		gameWorld.addEntity(box10);
 		gameWorld.addEntity(box11);
+		
+		*/
+		Entity bullet = new Bullet(gameWorld, PhysicWorld.getInstance(), 20, 8, 0);
+		Entity bullet2 = new Bullet(gameWorld, PhysicWorld.getInstance(), 20, 12, 0);
+		Entity bullet3 = new Bullet(gameWorld, PhysicWorld.getInstance(), 22, 14, 0);
+		Entity bullet4 = new Bullet(gameWorld, PhysicWorld.getInstance(), 18, 16, 0);
+		Entity bullet5 = new Bullet(gameWorld, PhysicWorld.getInstance(), 19, 12, 0);
+		Entity bullet6 = new Bullet(gameWorld, PhysicWorld.getInstance(), 21, 12, 0);
+		gameWorld.addEntity(bullet);
+		gameWorld.addEntity(bullet2);
+		gameWorld.addEntity(bullet3);
+		gameWorld.addEntity(bullet4);
+		gameWorld.addEntity(bullet5);
+		gameWorld.addEntity(bullet6);
 		
 		GlobalAccess.setSoldier(new Soldier(gameWorld, PhysicWorld.getInstance(), 10,14, 0));
 		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 20, 14, 0,GlobalAccess.getSoldierInstance()));

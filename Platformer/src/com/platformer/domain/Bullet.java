@@ -1,40 +1,55 @@
 package com.platformer.domain;
-
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Bullet extends StaticEntity {
+
+public class Bullet extends DynamicPhysicsEntity {
 
 	public Bullet(GameWorld gameWorld, World world, float x, float y,
 			float angle) {
 		super(gameWorld, world, x, y, angle);
-		// TODO Auto-generated constructor stub
+		
+		image = getImage();
+		image.setRotation(0);
+		image.setSize(0.1f,0.1f);
 	}
-
+	
+	public void fire(Vector2 somePositions) {
+		this.getBody().applyLinearImpulse(somePositions, getBody().getWorldCenter(),true);
+	}
+	
 	@Override
-	Body initPhysicsBody(World world2, float x, float y, float angle) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	Body initPhysicsBody(World world, float x, float y, float angle) {
+		BodyDef def = new BodyDef();
+		def.type = BodyType.DynamicBody;
+		Body body = world.createBody(def);
+		body.setBullet(true);
+		body.setAwake(true);
+		
+		CircleShape circle = new CircleShape();
+		circle.setRadius(0.1f);
+		
+		// Create a fixture definition to apply our shape to
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = circle;
+		fixtureDef.density = 0.8f; 
+		fixtureDef.friction = 0f;
+		fixtureDef.restitution = 0f; // Make it bounce a little bit
+		body.setUserData(this);
 
+		body.createFixture(fixtureDef);	
+		return body;
+		
+	}
+	
 	@Override
 	public Image getImage() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Image(loadImage("bullet.png"));
 	}
-
-	@Override
-	public void draw(SpriteBatch spriteBatch, float delta) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setPos(float x, float y) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

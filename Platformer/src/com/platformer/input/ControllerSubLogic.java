@@ -7,7 +7,7 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.utils.Array;
-import com.platformer.domain.Movable;
+import com.platformer.domain.Controllable;
 import com.platformer.domain.Soldier;
 import com.platformer.platformer.ContactListenerImplementation;
 
@@ -17,7 +17,7 @@ public class ControllerSubLogic extends InputSublogic{
 
 	//private ContactListenerImplementation 	contactListener;
 	Controller activeController;
-	public ControllerSubLogic(Movable movable, ContactListener listner, Controller controller)
+	public ControllerSubLogic(Controllable movable, ContactListener listner, Controller controller)
 	{
 		super(movable);
 		
@@ -45,6 +45,12 @@ public class ControllerSubLogic extends InputSublogic{
 	protected boolean checkFly() {
 		// not implemented
 		return activeController.getButton(3);
+	}
+
+	@Override
+	protected boolean checkShoot() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 
-public class EnemySoldier extends DynamicPhysicsEntity implements Movable{
+public class EnemySoldier extends DynamicPhysicsEntity implements Controllable{
 	
 	private Animation stand;
 	private Animation walk;
@@ -91,7 +91,7 @@ public class EnemySoldier extends DynamicPhysicsEntity implements Movable{
 			getBody().applyLinearImpulse(new Vector2(-5.0f,0f), getBody().getWorldCenter(),true);
 	}
 
-	@Override
+	@Override// TODO Auto-generated method stub
 	public void fly() {
 		// TODO Auto-generated method stub
 		
@@ -200,6 +200,11 @@ public class EnemySoldier extends DynamicPhysicsEntity implements Movable{
 			spriteBatch.draw(frame, getBody().getPosition().x + 0.5f, getBody().getPosition().y -(.5f), -1, 1);
 		}
 
+		
+	}
+	@Override
+	public void shoot() {
+		
 		
 	}
 

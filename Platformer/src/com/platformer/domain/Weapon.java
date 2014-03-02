@@ -1,5 +1,8 @@
 package com.platformer.domain;
 
+import com.badlogic.gdx.math.Vector2;
+import com.platformer.platformer.BulletContainer;
+
 public abstract class Weapon {
 	
 	private int capacity;
@@ -7,6 +10,8 @@ public abstract class Weapon {
 	private BulletContainer bullets;
 	private int ammoLeft;
 	public Weapon() {
+		
+		bullets = new BulletContainer();
 		capacity = 0;
 		damage = 0;
 		ammoLeft = 0;
@@ -18,10 +23,34 @@ public abstract class Weapon {
 		this.ammoLeft 	= capacity;
 	}
 	
-	public void shoot() {
-		this.ammoLeft--;
+	public void shootUp() {
+		this.shoot();
+		
+	//	Vector2 pos = this.getBody().getPosition();
+	//	Bullet bullet = this.bulletContainer.getBullet(pos.x,pos.y);
+		
+	//	bullet.fire();
 	}
 	
+	private void shoot(){
+		this.ammoLeft--;
+	}
+	public void shootLeft(Vector2 hostPosition) {
+		this.shoot();
+		System.out.println("left");
+		Bullet bullet = this.bullets.getBullet(hostPosition.x-0.7f,hostPosition.y);
+		Vector2 direction = new Vector2(-5f,0f);
+		bullet.fire(direction);
+	}
+	public void shootRight(Vector2 hostPosition)
+	{
+		this.shoot();
+		System.out.println("right");
+		Bullet bullet = this.bullets.getBullet(hostPosition.x+0.7f,hostPosition.y);
+		
+		Vector2 direction = new Vector2(5f,0f);
+		bullet.fire(direction);
+	}
 	public void reload() {
 		this.ammoLeft = capacity;
 	}

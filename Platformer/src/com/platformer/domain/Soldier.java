@@ -18,9 +18,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.platformer.platformer.BulletContainer;
 import com.platformer.platformer.Constants;
 
-public class Soldier extends MortalDynamicPhysicsEntity  implements Movable{
+public class Soldier extends MortalDynamicPhysicsEntity  implements Controllable{
 
 	private static final float MOVE_SPEED = 0.1f; 
 	
@@ -30,12 +31,14 @@ public class Soldier extends MortalDynamicPhysicsEntity  implements Movable{
 	private boolean facesRight = true;
     private boolean idle = true;
     private boolean inTheSky = false;
+    private Inventory inventory = new Inventory();
+   //private BulletContainer bulletContainer = new BulletContainer();
     
 	public Soldier(GameWorld gameWorld, World world, float x, float y,float angle) {
 		super(gameWorld, world, x, y, angle);
 		loadSprite();
 		stateTime = 0;
-		
+		inventory.setCurrentWeapon(new StandardWeapon());
 	}
 	
 	private void loadSprite()
@@ -154,7 +157,23 @@ public class Soldier extends MortalDynamicPhysicsEntity  implements Movable{
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+	@Override
+	public void shoot() {
+		Weapon weapon = this.inventory.getCurrentWeapon();
+		Vector2 currentPos = this.getBody().getPosition();
+		if(weapon != null)
+		{
+			if(facesRight) {
+				weapon.shootRight(currentPos);
+			}
+			else {
+				weapon.shootLeft(currentPos);
+				
+			}
+		
+		}
+	}
 	
 	
 }

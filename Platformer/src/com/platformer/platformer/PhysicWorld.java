@@ -15,15 +15,9 @@ public class PhysicWorld {
 		if(world == null)
 		{
 			world =  new World(new Vector2(0, -100), true);
-			setContactListner();
 		}
 		return world;
 	}
-	
-	
-	private static void setContactListner()
-	{
-		
-	}
+
 	
 }

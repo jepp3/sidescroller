@@ -2,7 +2,7 @@ package com.platformer.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.platformer.domain.Movable;
+import com.platformer.domain.Controllable;
 import com.platformer.domain.Soldier;
 import com.platformer.platformer.ContactListenerImplementation;
 
@@ -10,7 +10,7 @@ import com.platformer.platformer.ContactListenerImplementation;
 public class TouchSubLogic extends InputSublogic {
 	
 	//ContactListenerImplementation contactListener;
-	public TouchSubLogic(Movable movable, ContactListener listner)
+	public TouchSubLogic(Controllable movable, ContactListener listner)
 	{
 		super(movable);
 	//	contactListener = (ContactListenerImplementation) listner;
@@ -50,5 +50,11 @@ public class TouchSubLogic extends InputSublogic {
 	protected boolean checkFly() {
 		// not implemented, so the soldier is not flying
 		return checkMultiTouch(0.55f, 0.74f);
+	}
+
+	@Override
+	protected boolean checkShoot() {
+		
+		return false;
 	}
 }

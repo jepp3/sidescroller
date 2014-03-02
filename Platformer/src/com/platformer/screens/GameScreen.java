@@ -62,6 +62,8 @@ public class GameScreen implements Screen{
 		camera.setToOrtho(false, 10*1.4f, 6*1.4f);
 		box2DRenderer = new  Box2DDebugRenderer();
         gameWorld = WorldLoader.createWorld("map/Box2DMapObjectParserTutorial.tmx");
+        
+        GlobalAccess.setGameWorld(gameWorld);
         SoundLoader.loadSounds();
         
         

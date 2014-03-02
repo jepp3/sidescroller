@@ -10,6 +10,8 @@ public abstract class StaticEntity extends Entity {
 	public StaticEntity(GameWorld gameWorld,World world, float x, float y, float angle) {
 		super(gameWorld, x, y, angle);
 		body = initPhysicsBody(world, x, y, angle);
+		setPos(x,y);
+		setAngle(angle);
 	}
 
 	

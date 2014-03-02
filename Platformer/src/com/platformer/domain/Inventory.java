@@ -9,5 +9,14 @@ import java.util.ArrayList;
  *
  */
 public class Inventory {
-	public ArrayList<Weapon> weapons = new ArrayList<Weapon>();
+	
+	private Weapon currentWeapon = null;
+	
+	public void setCurrentWeapon(Weapon weapon)
+	{
+		this.currentWeapon = weapon;
+	}
+	public Weapon getCurrentWeapon() {
+		return this.currentWeapon;
+	}
 }

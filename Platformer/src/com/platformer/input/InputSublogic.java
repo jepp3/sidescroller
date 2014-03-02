@@ -1,14 +1,14 @@
 package com.platformer.input;
 
-import com.platformer.domain.Movable;
+import com.platformer.domain.Controllable;
 
 public abstract class InputSublogic {
 	/**
 	 * Implements the specific logic that is unique for the current input type 
 	 */
-	protected Movable movable;
+	protected Controllable movable;
 	
-	public InputSublogic(Movable movableObject)
+	public InputSublogic(Controllable movableObject)
 	{
 		movable = movableObject;
 	}
@@ -33,6 +33,9 @@ public abstract class InputSublogic {
 			 	movable.fly();
 			 	idle = false;
 		 }		 	 
+		 if(checkShoot()) {
+			 movable.shoot();
+		 }
 		 if(idle)
 		 {
 			 movable.idle();
@@ -44,5 +47,6 @@ public abstract class InputSublogic {
 	protected abstract boolean checkRight();
 	protected abstract boolean checkJump();
 	protected abstract boolean checkFly();
+	protected abstract boolean checkShoot();
 	
 }

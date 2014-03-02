@@ -3,9 +3,10 @@ package com.platformer.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.platformer.domain.Movable;
+import com.platformer.domain.Controllable;
 import com.platformer.domain.Soldier;
 import com.platformer.platformer.ContactListenerImplementation;
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 
 public class KeyBoardSubLogic extends InputSublogic {
 	
@@ -36,6 +37,11 @@ public class KeyBoardSubLogic extends InputSublogic {
 	@Override
 	protected boolean checkFly() {
 		return Gdx.input.isKeyPressed(Keys.SHIFT_LEFT);
+	}
+
+	@Override
+	protected boolean checkShoot() {
+		return Gdx.input.isKeyPressed(Keys.ENTER);
 	}
 
 }
