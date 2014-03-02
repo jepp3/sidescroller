@@ -152,10 +152,9 @@ public class EnemySoldier extends DynamicPhysicsEntity implements Movable{
 				
 			} else if(distance.x < runDistance) {
 				
-				// set animation to run
+			
 			}
-			else 
-			{
+			else {
 				// set animation to idle
 			}
 			
