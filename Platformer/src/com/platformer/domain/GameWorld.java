@@ -23,6 +23,10 @@ public class GameWorld {
 	{
 		this.entities.add(entity);
 	}
+	public void removeEntity(Entity entity)
+	{
+		this.entities.removeValue(entity, true);
+	}
 	
 	public void setRenderer(OrthogonalTiledMapRenderer rend) {
 		

@@ -48,7 +48,7 @@ public abstract class Weapon {
 		System.out.println("right");
 		Bullet bullet = this.bullets.getBullet(hostPosition.x+0.7f,hostPosition.y);
 		
-		Vector2 direction = new Vector2(5f,0f);
+		Vector2 direction = new Vector2(2f,0f);
 		bullet.fire(direction);
 	}
 	public void reload() {

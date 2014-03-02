@@ -15,6 +15,8 @@ public class SoldierSubLogic extends ContactSubLogic {
 		Object contactA = contact.getFixtureA().getBody().getUserData();
 		Object contactB = contact.getFixtureB().getBody().getUserData();		
 				
+		
+		
 		Soldier soldierObject =null;
 		Fixture fixture = null;
 		if(contactB instanceof Soldier) {

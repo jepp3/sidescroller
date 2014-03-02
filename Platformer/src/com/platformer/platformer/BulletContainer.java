@@ -15,6 +15,8 @@ import com.platformer.domain.Bullet;
 public class BulletContainer {
 	private ArrayList<Bullet> bullets; 
 	private int maxSize = -1;
+	private int cleanupIntervalMax = 20;
+	private int cleanupIntervalCurrent = 0;
 	public BulletContainer()
 	{
 		this.bullets = new ArrayList<Bullet>();
@@ -27,6 +29,11 @@ public class BulletContainer {
 	
 	public Bullet getBullet(float xPos, float yPos)
 	{
+		
+		cleanUp();
+		
+		
+		cleanupIntervalCurrent++;
 		Bullet bullet = new Bullet(
 				GlobalAccess.getGameWorldInstance(),
 				PhysicWorld.getInstance(),
@@ -41,6 +48,20 @@ public class BulletContainer {
 	}
 	
 	public void clearAllBullets(){
-		this.bullets.clear();
+		//this.bullets.clear();
+	}
+	
+	public void cleanUp()
+	{
+		if(cleanupIntervalCurrent == cleanupIntervalMax)
+		{
+			for (Bullet bullet : this.bullets) {
+				
+				GlobalAccess.getGameWorldInstance().removeEntity(bullet);
+				bullet.destroyBody();
+			}
+			cleanupIntervalCurrent = 0;
+			bullets.clear();
+		}
 	}
 }

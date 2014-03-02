@@ -26,10 +26,24 @@ public class ContactListenerImplementation implements ContactListener{
 	
 	@Override
 	public void endContact(Contact contact) {
-		Object contactA = contact.getFixtureA().getBody().getUserData();
-		Object contactB = contact.getFixtureB().getBody().getUserData();
+		Fixture contactA = contact.getFixtureA();
+		Fixture contactB = contact.getFixtureB();
+		Object objB = null;
+		Object objA = null;
+		if(contactA != null && contactA.getBody() != null)
+		{
+			objA = contactA.getBody().getUserData();
+		}
+		else if (contactB != null && contactB.getBody() != null)
+		{
+			objB = contactB.getBody().getUserData();
+		}
+		if(objA == null || objB == null)
+		{
+			return;
+		}
 		
-		if(contactB instanceof Soldier || contactA instanceof Soldier) {
+		if(objB instanceof Soldier || objA instanceof Soldier) {
 			soldierSubLogic.endLogic(contact);
 		}
 	}
