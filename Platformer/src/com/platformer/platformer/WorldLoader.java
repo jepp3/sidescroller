@@ -53,18 +53,16 @@ public class WorldLoader {
 	
 	private static void loadEntities(GameWorld gameWorld)
 	{
-	/*	Entity box = new Box(gameWorld, PhysicWorld.getInstance(), 10,10, 0);
+		Entity box = new Box(gameWorld, PhysicWorld.getInstance(), 10,10, 0);
 		Entity box2 = new Box(gameWorld, PhysicWorld.getInstance(), 15,10, 0);
 		Entity box3 = new Box(gameWorld, PhysicWorld.getInstance(), 17,10, 0);
 		Entity box4 = new Box(gameWorld, PhysicWorld.getInstance(), 18,14, 0);
 		Entity box5 = new Box(gameWorld, PhysicWorld.getInstance(), 19,14, 0);
 		Entity box6 = new Box(gameWorld, PhysicWorld.getInstance(), 22,15, 0);
 		Entity box7 = new Box(gameWorld, PhysicWorld.getInstance(), 24,17, 0);
+		Entity box8 = new Box(gameWorld, PhysicWorld.getInstance(), 26,10, 0);
 		
-		Entity box8 = new Box(gameWorld, PhysicWorld.getInstance(), 20,14, 0);
-		Entity box9 = new Box(gameWorld, PhysicWorld.getInstance(), 24,14, 0);
-		Entity box10 = new Box(gameWorld, PhysicWorld.getInstance(), 26,15, 0);
-		Entity box11 = new Box(gameWorld, PhysicWorld.getInstance(), 27,17, 0);
+		
 		gameWorld.addEntity(box);
 		gameWorld.addEntity(box2);
 		gameWorld.addEntity(box3);
@@ -73,11 +71,7 @@ public class WorldLoader {
 		gameWorld.addEntity(box6);
 		gameWorld.addEntity(box7);
 		gameWorld.addEntity(box8);
-		gameWorld.addEntity(box9);
-		gameWorld.addEntity(box10);
-		gameWorld.addEntity(box11);
-		
-		*/
+
 		Entity bullet = new Bullet(gameWorld, PhysicWorld.getInstance(), 20, 8, 0);
 		Entity bullet2 = new Bullet(gameWorld, PhysicWorld.getInstance(), 20, 12, 0);
 		Entity bullet3 = new Bullet(gameWorld, PhysicWorld.getInstance(), 22, 14, 0);
@@ -90,8 +84,9 @@ public class WorldLoader {
 		gameWorld.addEntity(bullet4);
 		gameWorld.addEntity(bullet5);
 		gameWorld.addEntity(bullet6);
-		
-		GlobalAccess.setSoldier(new Soldier(gameWorld, PhysicWorld.getInstance(), 10,14, 0));
+		Soldier soldier = new Soldier(gameWorld, PhysicWorld.getInstance(), 10,14, 0);
+		GlobalAccess.setSoldier(soldier);
+		gameWorld.addEntity(soldier);
 		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 20, 14, 0,GlobalAccess.getSoldierInstance()));
 		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 40, 14, 0,GlobalAccess.getSoldierInstance()));
 		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 60, 14, 0,GlobalAccess.getSoldierInstance()));
@@ -100,7 +95,14 @@ public class WorldLoader {
 		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 40, 14, 0,GlobalAccess.getSoldierInstance()));
 		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 60, 14, 0,GlobalAccess.getSoldierInstance()));
 		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 80, 14, 0,GlobalAccess.getSoldierInstance()));
-
+		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 20, 14, 0,GlobalAccess.getSoldierInstance()));
+		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 40, 14, 0,GlobalAccess.getSoldierInstance()));
+		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 60, 14, 0,GlobalAccess.getSoldierInstance()));
+		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 80, 14, 0,GlobalAccess.getSoldierInstance()));
+		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 20, 14, 0,GlobalAccess.getSoldierInstance()));
+		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 40, 14, 0,GlobalAccess.getSoldierInstance()));
+		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 60, 14, 0,GlobalAccess.getSoldierInstance()));
+		gameWorld.addEntity(new EnemySoldier(gameWorld, PhysicWorld.getInstance(), 80, 14, 0,GlobalAccess.getSoldierInstance()));
 	
 	}
 

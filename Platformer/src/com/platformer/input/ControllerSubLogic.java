@@ -50,7 +50,7 @@ public class ControllerSubLogic extends InputSublogic{
 	@Override
 	protected boolean checkShoot() {
 		// TODO Auto-generated method stub
-		return false;
+		return activeController.getButton(2);
 	}
 
 }

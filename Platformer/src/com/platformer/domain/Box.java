@@ -1,4 +1,6 @@
 package com.platformer.domain;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -40,4 +42,10 @@ public class Box extends DynamicPhysicsEntity {
 	public Image getImage() {
 		return new Image(loadImage("box.png"));
 	}
+
+	@Override
+	public void destroy() {
+		throw new NotImplementedException();
+	}
+	
 }

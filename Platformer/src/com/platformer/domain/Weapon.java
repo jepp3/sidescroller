@@ -37,16 +37,16 @@ public abstract class Weapon {
 	}
 	public void shootLeft(Vector2 hostPosition) {
 		this.shoot();
-		System.out.println("left");
-		Bullet bullet = this.bullets.getBullet(hostPosition.x-0.7f,hostPosition.y);
-		Vector2 direction = new Vector2(-5f,0f);
+	//	System.out.println("left");
+		Bullet bullet = this.bullets.getBullet(hostPosition.x-1f,hostPosition.y);
+		Vector2 direction = new Vector2(-2f,0f);
 		bullet.fire(direction);
 	}
 	public void shootRight(Vector2 hostPosition)
 	{
 		this.shoot();
-		System.out.println("right");
-		Bullet bullet = this.bullets.getBullet(hostPosition.x+0.7f,hostPosition.y);
+	//	System.out.println("right");
+		Bullet bullet = this.bullets.getBullet(hostPosition.x+1f,hostPosition.y);
 		
 		Vector2 direction = new Vector2(2f,0f);
 		bullet.fire(direction);

@@ -1,21 +1,23 @@
 package com.platformer.domain;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
 
 public class GameWorld {
 
-	private Array<Entity> entities = null;
+	private ArrayList<Entity> entities = null;
 	private OrthogonalTiledMapRenderer renderer = null;
 	
 	public GameWorld()
 	{
-		entities = new Array<Entity>();
+		entities = new ArrayList<Entity>();
 	}
-	public Array<Entity> getEntities() {
+	public ArrayList<Entity> getEntities() {
 		return entities;
 	}
-	public void setEntities(Array<Entity> entities) {
+	public void setEntities(ArrayList<Entity> entities) {
 		this.entities = entities;
 	}
 	
@@ -25,7 +27,7 @@ public class GameWorld {
 	}
 	public void removeEntity(Entity entity)
 	{
-		this.entities.removeValue(entity, true);
+		this.entities.remove(entity);
 	}
 	
 	public void setRenderer(OrthogonalTiledMapRenderer rend) {

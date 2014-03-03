@@ -7,10 +7,9 @@ public class GlobalAccess {
 	
 	private static Soldier soldier;
 	private static GameWorld gameWorld;
+	private static EntityDestroyer entityDestroyer;
 	public static Soldier getSoldierInstance() {
-	
 		return GlobalAccess.soldier;
-	
 	}
 	public static void setSoldier(Soldier soldier) {
 		GlobalAccess.soldier = soldier;
@@ -21,5 +20,10 @@ public class GlobalAccess {
 	public static GameWorld getGameWorldInstance() {
 		return gameWorld;
 	}
-	
+	public static void setEntityDestroyer(EntityDestroyer destroyer) {
+		entityDestroyer = destroyer;
+	}
+	public static EntityDestroyer getEntityDestroyerInstance() {
+		return entityDestroyer;
+	}
 }

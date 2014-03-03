@@ -15,7 +15,7 @@ import com.platformer.domain.Bullet;
 public class BulletContainer {
 	private ArrayList<Bullet> bullets; 
 	private int maxSize = -1;
-	private int cleanupIntervalMax = 20;
+	private int cleanupIntervalMax = 10;
 	private int cleanupIntervalCurrent = 0;
 	public BulletContainer()
 	{
@@ -34,6 +34,7 @@ public class BulletContainer {
 		
 		
 		cleanupIntervalCurrent++;
+
 		Bullet bullet = new Bullet(
 				GlobalAccess.getGameWorldInstance(),
 				PhysicWorld.getInstance(),
@@ -44,6 +45,7 @@ public class BulletContainer {
 		
 		bullets.add(bullet);
 		GlobalAccess.getGameWorldInstance().addEntity(bullet);
+
 		return bullet;
 	}
 	
@@ -57,8 +59,9 @@ public class BulletContainer {
 		{
 			for (Bullet bullet : this.bullets) {
 				
-				GlobalAccess.getGameWorldInstance().removeEntity(bullet);
-				bullet.destroyBody();
+				GlobalAccess.getEntityDestroyerInstance().addToQueue(bullet);
+				//GlobalAccess.getGameWorldInstance().removeEntity(bullet);
+				//bullet.destroy();
 			}
 			cleanupIntervalCurrent = 0;
 			bullets.clear();

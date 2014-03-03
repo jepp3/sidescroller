@@ -1,6 +1,8 @@
 package com.platformer.domain;
 
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -173,6 +175,12 @@ public class Soldier extends MortalDynamicPhysicsEntity  implements Controllable
 			}
 		
 		}
+	}
+
+	@Override
+	public void destroy() {
+		
+		System.out.println("destroyed");
 	}
 	
 	

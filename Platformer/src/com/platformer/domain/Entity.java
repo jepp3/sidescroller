@@ -63,5 +63,7 @@ public abstract class Entity {
 	 */
 	public void update(float delta) {
 	}
+
+	abstract public void destroy();
 	
 }

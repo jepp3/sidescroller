@@ -10,13 +10,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Array;
+import com.platformer.platformer.GlobalAccess;
+import com.platformer.platformer.PhysicWorld;
 
 
-public class EnemySoldier extends DynamicPhysicsEntity implements Controllable{
+public class EnemySoldier extends MortalDynamicPhysicsEntity implements Controllable{
 	
 	private Animation stand;
 	private Animation walk;
@@ -41,7 +45,7 @@ public class EnemySoldier extends DynamicPhysicsEntity implements Controllable{
 	@Override
 	Body initPhysicsBody(World world, float x, float y, float angle) {
 		
-		Sprite sprite = new Sprite(new Texture(Gdx.files.internal("soldier.png")));
+	//	Sprite sprite = new Sprite(new Texture(Gdx.files.internal("soldier.png")));
 		BodyDef def = new BodyDef();
 		def.type = BodyType.DynamicBody;
 		Body box = world.createBody(def);
@@ -67,11 +71,11 @@ public class EnemySoldier extends DynamicPhysicsEntity implements Controllable{
 		box.setSleepingAllowed(false);
 		box.setFixedRotation(true);
 	
-		sprite.setSize(1, 1f);
+	//	sprite.setSize(1, 1f);
+	
+		
+		
 		return box;
-		
-		
-		//return null;
 	}
 	
 
@@ -207,6 +211,27 @@ public class EnemySoldier extends DynamicPhysicsEntity implements Controllable{
 		
 		
 	}
+	@Override
+	public void resurrect() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 
-
+	@Override
+	public void die() {
+		
+		
+		
+	}
+	@Override
+	public void destroy() {
+		Body bodyToDestroy = super.getBody();
+		
+	 
+		PhysicWorld.getInstance().destroyBody(bodyToDestroy);
+		
+	//	GlobalAccess.getGameWorldInstance().removeEntity(this);		
+	}
 }

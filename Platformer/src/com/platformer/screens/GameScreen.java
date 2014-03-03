@@ -27,6 +27,7 @@ import com.platformer.input.InputSublogic;
 import com.platformer.input.KeyBoardSubLogic;
 import com.platformer.input.TouchSubLogic;
 import com.platformer.platformer.ContactListenerImplementation;
+import com.platformer.platformer.EntityDestroyer;
 import com.platformer.platformer.GlobalAccess;
 import com.platformer.platformer.PhysicWorld;
 import com.platformer.platformer.Platformer;
@@ -64,6 +65,7 @@ public class GameScreen implements Screen{
         gameWorld = WorldLoader.createWorld("map/Box2DMapObjectParserTutorial.tmx");
         
         GlobalAccess.setGameWorld(gameWorld);
+        GlobalAccess.setEntityDestroyer(new EntityDestroyer());
         SoundLoader.loadSounds();
         
         
@@ -111,7 +113,7 @@ public class GameScreen implements Screen{
 		for(Controller c : Controllers.getControllers())
 		{
 			controller = c;
-		}
+		}	
 		
 		return controller;
 	}
@@ -124,8 +126,18 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
+		
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		System.out.println("before step");
 		PhysicWorld.getInstance().step(1/200f, 8, 3);
+		System.out.println("after step");
+		GlobalAccess.getEntityDestroyerInstance().destroy();
+		
+		//	
+		
+		
+		
+		
 		
 		SpriteBatch batch = (SpriteBatch) gameWorld.getRenderer().getSpriteBatch();
 		
@@ -136,20 +148,26 @@ public class GameScreen implements Screen{
         gameWorld.getRenderer().setView(camera);
         gameWorld.getRenderer().render();
         gameWorld.getRenderer().getSpriteBatch().begin();
-        soldier.draw(batch,delta);    
+        //soldier.draw(batch,delta);    
         
         for (Entity ent : gameWorld.getEntities()) {
+      
         	ent.draw(batch,delta);
-		}    
+        	
+		}
+		    
         gameWorld.getRenderer().getSpriteBatch().end();
+        
      //   box2DRenderer.render(PhysicWorld.getInstance(), camera.combined);
 	}
 	
 
 	private void updateCameraLocation(Soldier soldier) {
 
-		camera.position.x=soldier.getBody().getPosition().x;
-		camera.position.y=soldier.getBody().getPosition().y;
+		final float x = soldier.getBody().getPosition().x;
+		final float y = soldier.getBody().getPosition().y;
+		camera.position.x=x;
+		camera.position.y=y;
 		
 		camera.update();
 	}

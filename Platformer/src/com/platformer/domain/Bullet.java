@@ -1,12 +1,16 @@
 package com.platformer.domain;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Array;
 import com.platformer.platformer.PhysicWorld;
 
 
@@ -36,18 +40,19 @@ public class Bullet extends DynamicPhysicsEntity {
 		body.setAwake(true);
 		
 		circle = new CircleShape();
-		circle.setRadius(0.1f);
+		circle.setRadius(0.03f);
 		
 		// Create a fixture definition to apply our shape to
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
-		fixtureDef.density = 0.8f; 
+		fixtureDef.density = 8f; 
 		fixtureDef.friction = 0f;
 		fixtureDef.restitution = 0f;
 		body.setUserData(this);
 
 		body.createFixture(fixtureDef);	
-		destroy();
+		this.circle.dispose();
+		
 		return body;
 		
 	}
@@ -57,12 +62,9 @@ public class Bullet extends DynamicPhysicsEntity {
 		return new Image(loadImage("bullet.png"));
 	}
 	
-	private void destroy()
-	{
-		this.circle.dispose();
-	}
+
 	
-	public void destroyBody()
+	public void destroy()
 	{
 		Body bodyToDestroy = super.getBody();
 		PhysicWorld.getInstance().destroyBody(bodyToDestroy);
