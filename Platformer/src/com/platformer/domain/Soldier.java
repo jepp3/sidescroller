@@ -22,6 +22,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.platformer.platformer.BulletContainer;
 import com.platformer.platformer.Constants;
+import com.platformer.platformer.PhysicWorld;
 
 public class Soldier extends MortalDynamicPhysicsEntity  implements Controllable{
 
@@ -185,8 +186,9 @@ public class Soldier extends MortalDynamicPhysicsEntity  implements Controllable
 
 	@Override
 	public void destroy() {
+		Body bodyToDestroy = super.getBody();
+		PhysicWorld.getInstance().destroyBody(bodyToDestroy);
 		
-		System.out.println("destroyed");
 	}
 	
 	

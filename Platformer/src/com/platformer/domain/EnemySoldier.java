@@ -19,6 +19,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.platformer.platformer.GlobalAccess;
 import com.platformer.platformer.PhysicWorld;
 
@@ -32,18 +35,27 @@ public class EnemySoldier extends MortalDynamicPhysicsEntity implements Controll
 	private final int maxSpeed = 1;
 	private boolean facesRight = false;
     private boolean idle = true;
-    
-    
+    private boolean okToShoot = true;
+    float delay = 1; // seconds
+    private Sound sound;
+    private Sound knifeSound;
+    Timer timer = new Timer();
     
 	public EnemySoldier(GameWorld gameworld, World world, float  x , float y ,float angle) {
 		super(gameworld,world,x,y,angle);
 		loadSprite();
+		inventory.setCurrentWeapon(new StandardWeapon());
+		sound = Gdx.audio.newSound(Gdx.files.internal("sound/gun-gunshot.mp3"));
+		knifeSound = Gdx.audio.newSound(Gdx.files.internal("sound/knife.mp3"));
 	}
 	public EnemySoldier(GameWorld gameworld, World world, float  x , float y ,float angle,Soldier seek) {
 		super(gameworld,world,x,y,angle);
 		loadSprite();
 		this.seekObject = seek;
 		//stateTime = 0;
+		inventory.setCurrentWeapon(new StandardWeapon());
+		sound = Gdx.audio.newSound(Gdx.files.internal("sound/gun-gunshot.mp3"));
+		knifeSound = Gdx.audio.newSound(Gdx.files.internal("sound/knife.mp3"));
 	}
 	@Override
 	Body initPhysicsBody(World world, float x, float y, float angle) {
@@ -146,26 +158,35 @@ public class EnemySoldier extends MortalDynamicPhysicsEntity implements Controll
 	private void determentAction(Vector2 distance) {
 		
 			final double knifeDistance 	= 1;
-			final double shootDistance 	= 5;
+			final double minShootDistance 	= 2;
+			final double maxShootDistance 	= 7;
 			final double runDistance 		= 10;
 			
-			if(distance.x < knifeDistance && ((int)distance.y) == ((int)this.getBody().getPosition().y)) {
+			if(((int)distance.y) == ((int)this.getBody().getPosition().y)) {
+				if(distance.x < knifeDistance) {
+					
+					// set animation to knife
+					this.knife();
+					this.seekObject.die();
+					
+				} else if(distance.x > minShootDistance && distance.x < maxShootDistance) {
+					// set animation to shoot
+					initiateShooting();
+				} else if(distance.x < runDistance) {
+					
 				
-				// set animation to knife
-				this.seekObject.die();
-				
-			} else if(distance.x < shootDistance) {
-				// set animation to shoot
-				
-			} else if(distance.x < runDistance) {
-				
-			
+				}
 			}
 			else {
 				// set animation to idle
 			}
 			
 				
+	}
+	private void knife()
+	{
+		if(!this.seekObject.isDead())
+			this.knifeSound.play();
 	}
 	private void calculateMovement() {
 		
@@ -176,12 +197,26 @@ public class EnemySoldier extends MortalDynamicPhysicsEntity implements Controll
 			this.idle();
 		}
 		else if(targetPos.x < thisPos.x) {
+			
 			this.moveLeft();
 		}
 		else{
 			this.moveRight();
 		}
 		
+	}
+	private void initiateShooting() {
+		if(okToShoot)
+		{
+			timer.scheduleTask(new Task() {
+				@Override
+				public void run() {
+					shoot();
+					okToShoot = true;
+				}
+			},0.5f);
+		}
+		okToShoot = false;
 	}
 	@Override
 	public void draw(SpriteBatch spriteBatch, float delta) {
@@ -212,6 +247,20 @@ public class EnemySoldier extends MortalDynamicPhysicsEntity implements Controll
 	@Override
 	public void shoot() {
 		
+		Weapon weapon = this.inventory.getCurrentWeapon();
+		Vector2 currentPos = this.getBody().getPosition();
+		if(weapon != null)
+		{
+			sound.play(0.6f);
+			if(facesRight) {
+				weapon.shootRight(currentPos);
+			}
+			else {
+				weapon.shootLeft(currentPos);
+				
+			}
+		
+		}
 		
 	}
 	@Override

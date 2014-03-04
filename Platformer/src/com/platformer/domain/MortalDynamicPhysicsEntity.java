@@ -12,7 +12,7 @@ public abstract class MortalDynamicPhysicsEntity  extends DynamicPhysicsEntity  
 	public MortalDynamicPhysicsEntity(GameWorld gameWorld, World world,
 			float x, float y, float angle) {
 		super(gameWorld, world, x, y, angle);
-		
+		inventory = new Inventory();
 	}
 	
 	public int getHealth()

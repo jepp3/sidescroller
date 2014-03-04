@@ -12,11 +12,19 @@ public class SoldierSubLogic extends ContactSubLogic {
 	public void endLogic(Contact contact) {
 		
 		
-		Object contactA = contact.getFixtureA().getBody().getUserData();
-		Object contactB = contact.getFixtureB().getBody().getUserData();		
+		Object contactA = null; contact.getFixtureA().getBody().getUserData();
+		Object contactB = null;		
 				
+		if(contact.getFixtureB() != null)
+		{
+			 contactB = contact.getFixtureB().getBody().getUserData();
+		}
 		
-		
+		if(contact.getFixtureA() != null)
+		{
+			 contactA = contact.getFixtureA().getBody().getUserData();
+		}
+				
 		Soldier soldierObject =null;
 		Fixture fixture = null;
 		if(contactB instanceof Soldier) {
