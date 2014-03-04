@@ -18,8 +18,9 @@ public class SoundLoader {
 	
 	public static void loadSounds()
 	{
-		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("megaman.mp3"));
+		backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/background.mp3"));
 		backgroundMusic.setLooping(true);
-	//	backgroundMusic.play();	
+		backgroundMusic.setVolume(0.3f);
+		backgroundMusic.play();	
 	}
 }

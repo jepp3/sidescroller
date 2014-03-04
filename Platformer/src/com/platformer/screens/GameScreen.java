@@ -138,7 +138,7 @@ public class GameScreen implements Screen{
 		//	
 		
 		
-		
+		// demo with souynd! bad ai! 
 		
 		
 		SpriteBatch batch = (SpriteBatch) gameWorld.getRenderer().getSpriteBatch();
@@ -160,7 +160,7 @@ public class GameScreen implements Screen{
 		    
         gameWorld.getRenderer().getSpriteBatch().end();
         
-       box2DRenderer.render(PhysicWorld.getInstance(), camera.combined);
+   //    box2DRenderer.render(PhysicWorld.getInstance(), camera.combined);
 	}
 	
 

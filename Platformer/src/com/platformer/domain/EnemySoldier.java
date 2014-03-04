@@ -1,6 +1,9 @@
 package com.platformer.domain;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -221,12 +224,16 @@ public class EnemySoldier extends MortalDynamicPhysicsEntity implements Controll
 
 	@Override
 	public void die() {
-		
-		
-		
+		Random rand = new Random();
+
+		int n = rand.nextInt(2) + 0;
+		String[] screams = {"sound/scream.mp3","sound/scream2.mp3"};
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal(screams[n]));
+		sound.play(0.8f);
 	}
 	@Override
 	public void destroy() {
+		die();
 		Body bodyToDestroy = super.getBody();
 		
 	 

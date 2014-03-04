@@ -34,6 +34,8 @@ public class Soldier extends MortalDynamicPhysicsEntity  implements Controllable
     private boolean idle = true;
     private boolean inTheSky = false;
     private Inventory inventory = new Inventory();
+	private Sound sound;
+
    //private BulletContainer bulletContainer = new BulletContainer();
     
 	public Soldier(GameWorld gameWorld, World world, float x, float y,float angle) {
@@ -41,6 +43,7 @@ public class Soldier extends MortalDynamicPhysicsEntity  implements Controllable
 		loadSprite();
 		stateTime = 0;
 		inventory.setCurrentWeapon(new StandardWeapon());
+		sound = Gdx.audio.newSound(Gdx.files.internal("sound/gun-gunshot.mp3"));
 	}
 	
 	private void loadSprite()
@@ -162,18 +165,21 @@ public class Soldier extends MortalDynamicPhysicsEntity  implements Controllable
 
 	@Override
 	public void shoot() {
-		Weapon weapon = this.inventory.getCurrentWeapon();
-		Vector2 currentPos = this.getBody().getPosition();
-		if(weapon != null)
-		{
-			if(facesRight) {
-				weapon.shootRight(currentPos);
+		if(!isDead()) {
+			Weapon weapon = this.inventory.getCurrentWeapon();
+			Vector2 currentPos = this.getBody().getPosition();
+			if(weapon != null)
+			{
+				sound.play(0.6f);
+				if(facesRight) {
+					weapon.shootRight(currentPos);
+				}
+				else {
+					weapon.shootLeft(currentPos);
+					
+				}
+			
 			}
-			else {
-				weapon.shootLeft(currentPos);
-				
-			}
-		
 		}
 	}
 
