@@ -126,12 +126,14 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
-		
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		System.out.println("before step");
+//		System.out.println("before step");
+		
 		PhysicWorld.getInstance().step(1/200f, 8, 3);
-		System.out.println("after step");
 		GlobalAccess.getEntityDestroyerInstance().destroy();
+
+	//	System.out.println("after step");
+		
 		
 		//	
 		
@@ -149,7 +151,7 @@ public class GameScreen implements Screen{
         gameWorld.getRenderer().render();
         gameWorld.getRenderer().getSpriteBatch().begin();
         //soldier.draw(batch,delta);    
-        
+       
         for (Entity ent : gameWorld.getEntities()) {
       
         	ent.draw(batch,delta);
@@ -158,7 +160,7 @@ public class GameScreen implements Screen{
 		    
         gameWorld.getRenderer().getSpriteBatch().end();
         
-     //   box2DRenderer.render(PhysicWorld.getInstance(), camera.combined);
+       box2DRenderer.render(PhysicWorld.getInstance(), camera.combined);
 	}
 	
 

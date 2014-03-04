@@ -9,7 +9,8 @@ import com.platformer.domain.Bullet;
 import com.platformer.domain.EnemySoldier;
 import com.platformer.domain.MortalDynamicPhysicsEntity;
 import com.platformer.domain.Soldier;
-import com.platformer.platformer.contacts.BulletHitSubLogic;
+import com.platformer.platformer.contacts.BulletHitAnything;
+import com.platformer.platformer.contacts.BulletHitMortalSubLogic;
 import com.platformer.platformer.contacts.ContactSubLogic;
 import com.platformer.platformer.contacts.SoldierSubLogic;
 import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
@@ -43,9 +44,7 @@ public class ContactListenerImplementation implements ContactListener{
 			
 			if(contactB != null)
 				objB = contactB.getBody().getUserData();
-			
-		
-	
+
 			
 			if(objB instanceof Soldier || objA instanceof Soldier) {
 				soldierSubLogic.endLogic(contact);
@@ -58,26 +57,41 @@ public class ContactListenerImplementation implements ContactListener{
 	@Override
 	public void beginContact(Contact contact) {
 	
-/*	
+
 		Object contactA = contact.getFixtureA().getBody().getUserData();
 		Object contactB = contact.getFixtureB().getBody().getUserData();
-
-		if(contactA instanceof MortalDynamicPhysicsEntity && contactB instanceof Bullet) {
-			BulletHitSubLogic bulletHitSubLogic = new BulletHitSubLogic((Bullet)contactB, (MortalDynamicPhysicsEntity)contactA);
+	
+		
+		if(contactA instanceof EnemySoldier && contactB instanceof Bullet) {
+			BulletHitMortalSubLogic bulletHitSubLogic = new BulletHitMortalSubLogic((Bullet)contactB, (MortalDynamicPhysicsEntity)contactA);
+			bulletHitSubLogic.beginLogic();
+		}
+	
+		if(contactB instanceof EnemySoldier && contactA instanceof Bullet) {
+			BulletHitMortalSubLogic bulletHitSubLogic = new BulletHitMortalSubLogic((Bullet)contactA, (MortalDynamicPhysicsEntity)contactB);
 			bulletHitSubLogic.beginLogic();
 		}
 		
-		if(contactB instanceof MortalDynamicPhysicsEntity && contactA instanceof Bullet) {
-			BulletHitSubLogic bulletHitSubLogic = new BulletHitSubLogic((Bullet)contactA, (MortalDynamicPhysicsEntity)contactB);
-			bulletHitSubLogic.beginLogic();
+		
+		if(contactA instanceof Bullet)
+		{
+			BulletHitAnything bulletHitAnything = new BulletHitAnything();
+			bulletHitAnything.beginLogic((Bullet)contactA);
 		}
+		if(contactB instanceof Bullet) {
+			BulletHitAnything bulletHitAnything = new BulletHitAnything();
+			bulletHitAnything.beginLogic((Bullet)contactB);
+		}
+		
+	
+		
 		
 		
 		if(contactB instanceof Soldier || contactA instanceof Soldier) {
 			soldierSubLogic.beginLogic(contact);
 		}
 	
-	*/
+	
 	
 
 	}

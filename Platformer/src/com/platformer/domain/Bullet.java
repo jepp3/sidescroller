@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.JointEdge;
 import com.badlogic.gdx.physics.box2d.World;
@@ -66,7 +67,14 @@ public class Bullet extends DynamicPhysicsEntity {
 	
 	public void destroy()
 	{
+		
 		Body bodyToDestroy = super.getBody();
-		PhysicWorld.getInstance().destroyBody(bodyToDestroy);
+		Array<Fixture> fixtureList = bodyToDestroy.getFixtureList();
+		if(bodyToDestroy!= null && fixtureList.size == 1) {
+			
+				
+				PhysicWorld.getInstance().destroyBody(bodyToDestroy);
+		}
+			
 	}
 }
